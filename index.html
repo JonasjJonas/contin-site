@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Luis Contin, Cirurgia Plástica · The Art Clinic Alphaville</title>
+<meta name="description" content="Dr. Luis Contin, cirurgião plástico especializado em LipoHD. The Art Clinic, Alphaville, São Paulo. Cirurgias realizadas exclusivamente em hospitais.">
+<!-- Open Graph / preview no WhatsApp e redes -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dr. Luis Contin · Cirurgia Plástica — The Art Clinic Alphaville">
+<meta property="og:description" content="Cirurgia plástica como forma de arte. Especialização em LipoHD, em ambiente hospitalar. The Art Clinic, Alphaville.">
+<meta property="og:image" content="https://jonasjjonas.github.io/contin-site/assets/og-preview.jpg">
+<meta property="og:url" content="https://jonasjjonas.github.io/contin-site/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --porcelain:#F7F4EF;
+  --porcelain-deep:#EFEAE2;
+  --greige:#C9BFB2;
+  --taupe:#8C8074;
+  --taupe-deep:#655C51;
+  --walnut:#6E4F37;
+  --brass:#B08D57;
+  --brass-link:#7E6236;
+  --brass-soft:#C9AC7A;
+  --amber:#C8862B;
+  --ink:#1C1916;
+  --ink-soft:#2A2620;
+  --olive:#5C6152;
+  --noir:#16110B;
+  --charcoal:#201811;
+  --graphite:#241B12;
+  --stone:#EDE7DB;
+  --max:1240px;
+  --pad:clamp(1.25rem,4vw,3rem);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Hanken Grotesk',sans-serif;
+  font-weight:400;
+  background:var(--noir);
+  color:var(--porcelain);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ---------- utilitários ---------- */
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+.eyebrow{
+  font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--brass);font-weight:600;
+}
+.display{
+  font-family:'Fraunces',serif;font-optical-sizing:auto;
+  font-weight:300;line-height:1.1;letter-spacing:-.015em;
+}
+.display em{font-style:italic;font-weight:400;color:var(--brass-soft)}
+.light .display em{color:var(--brass-link)}
+section{padding-block:clamp(5rem,10vw,8.5rem)}
+
+/* respiro claro — seções em tom mais claro para quebrar o ritmo do escuro */
+.light{background:var(--stone);color:var(--ink)}
+.light .eyebrow{color:var(--brass-link)}
+.light .split p{color:var(--ink-soft)}
+
+/* movimento — hero anima ao abrir (chama atenção), imagens assentam em foco ao surgir */
+.zoomable{overflow:hidden}
+.zoomable img{transition:transform 1.3s cubic-bezier(.22,1,.36,1)}
+.reveal .zoomable img,.reveal.zoomable img{transform:scale(1.08)}
+.reveal.in .zoomable img,.reveal.zoomable.in img{transform:scale(1)}
+@keyframes hero-zoom{from{transform:scale(1.16)}to{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){
+  .zoomable img{transform:none;transition:none}
+  .hero-bg{animation:none!important}
+}
+
+/* lacunas de conteúdo — remover antes de apresentar ao cliente */
+.gap{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.68rem;font-weight:600;letter-spacing:.05em;
+  color:var(--amber);border:1px dashed var(--amber);
+  padding:.15rem .55rem;border-radius:2px;
+  background:rgba(200,134,43,.06);white-space:nowrap;
+}
+.gap::before{content:"◇"}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease-out,transform .7s ease-out}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- header ---------- */
+header{
+  position:fixed;inset-inline:0;top:0;z-index:50;
+  background:transparent;
+  transition:background .35s,border-color .35s;
+  border-bottom:1px solid transparent;
+}
+header.solid{
+  background:color-mix(in srgb,var(--noir) 90%,transparent);
+  backdrop-filter:blur(12px);
+  border-bottom-color:color-mix(in srgb,var(--taupe) 30%,transparent);
+}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:80px}
+.brand{display:flex;align-items:center}
+.brand img{height:56px;width:auto}
+nav{display:flex;gap:2.2rem;font-size:.8rem;font-weight:500;letter-spacing:.05em}
+nav a{color:var(--porcelain);transition:color .25s}
+header.solid nav a{color:var(--porcelain)}
+nav a:hover,nav a:focus-visible{color:var(--brass-soft)}
+header.solid nav a:hover{color:var(--brass-soft)}
+.cta-mini{
+  border:1px solid var(--porcelain);color:var(--porcelain);
+  padding:.5rem 1.15rem;border-radius:2px;
+  font-size:.75rem;font-weight:600;letter-spacing:.08em;
+  transition:all .3s;
+}
+header.solid .cta-mini{border-color:var(--porcelain);color:var(--porcelain)}
+.cta-mini:hover{background:var(--brass);border-color:var(--brass);color:var(--porcelain)!important}
+@media(max-width:900px){nav{display:none}}
+
+/* ---------- hero: a clínica como portal de entrada ---------- */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;align-items:flex-end;
+  color:var(--porcelain);
+  padding-block:0 clamp(4rem,8vh,6rem);
+  isolation:isolate;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:-1;
+  background:url('assets/hero-clinica.webp') center 65%/cover no-repeat;
+  transform-origin:center;will-change:transform;
+  animation:hero-zoom 7s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(to top,rgba(15,13,11,.96) 0%,rgba(15,13,11,.72) 45%,rgba(15,13,11,.5) 100%);
+}
+.hero .wrap{width:100%}
+.hero h1{font-size:clamp(2.7rem,6vw,5rem);margin:1.1rem 0 1.4rem;max-width:16ch}
+.hero p.lead{
+  color:var(--greige);font-weight:300;font-size:1.08rem;max-width:36rem;
+}
+.hero-actions{margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.95rem 2rem;border-radius:2px;
+  font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  transition:transform .25s,background .25s,color .25s,border-color .25s;
+}
+.btn-primary{background:var(--porcelain);color:var(--ink)}
+.btn-primary:hover{background:var(--brass-soft)}
+.btn-ghost{border:1px solid rgba(247,244,239,.5);color:var(--porcelain)}
+.btn-ghost:hover{border-color:var(--brass-soft);color:var(--brass-soft)}
+.hero-meta{
+  margin-top:3rem;padding-top:1.5rem;
+  border-top:1px solid rgba(247,244,239,.18);
+  display:flex;flex-wrap:wrap;gap:.75rem 2.5rem;
+  font-size:.78rem;letter-spacing:.06em;color:var(--taupe);
+}
+.hero-meta strong{color:var(--greige);font-weight:500}
+
+/* ---------- manifesto: o corpo como arte ---------- */
+.manifesto .wrap{
+  display:grid;grid-template-columns:1fr .85fr;
+  gap:clamp(2.5rem,6vw,6rem);align-items:center;
+}
+.manifesto .display{font-size:clamp(1.8rem,3.4vw,2.6rem);margin-top:1.25rem}
+.manifesto figure{position:relative}
+.manifesto img{width:100%;height:min(74vh,660px);object-fit:cover;object-position:center 15%}
+.manifesto figcaption{
+  margin-top:.7rem;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe-deep);
+}
+@media(max-width:900px){.manifesto .wrap{grid-template-columns:1fr}}
+
+/* ---------- layout split (reutilizado) ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,6rem);align-items:center}
+.split h2{font-size:clamp(2rem,4vw,3.2rem);margin:1.1rem 0 1.4rem}
+.split p{color:var(--greige);max-width:32rem;margin-bottom:1rem}
+.split img{width:100%;height:min(72vh,640px);object-fit:cover}
+.frame{border:1px solid color-mix(in srgb,var(--brass) 26%,transparent);padding:.6rem;background:transparent}
+@media(max-width:900px){.split{grid-template-columns:1fr}}
+
+/* ---------- sobre ---------- */
+.sobre{background:var(--charcoal);color:var(--porcelain)}
+.sobre .eyebrow{color:var(--brass-soft)}
+.sobre h2{font-size:clamp(2rem,4vw,3.1rem);margin:1.1rem 0 1.4rem}
+.sobre p{color:color-mix(in srgb,var(--porcelain) 82%,transparent);font-weight:300;max-width:32rem;margin-bottom:1rem}
+.cred{margin-top:2rem;max-width:32rem}
+.cred li{
+  list-style:none;padding:.8rem 0;
+  border-bottom:1px solid color-mix(in srgb,var(--porcelain) 18%,transparent);
+  font-size:.92rem;color:color-mix(in srgb,var(--porcelain) 88%,transparent);
+}
+.cred li:last-child{border-bottom:none}
+.sobre img{width:100%;height:min(76vh,680px);object-fit:cover;object-position:center 20%}
+
+/* ---------- clínica (galeria) ---------- */
+.clinica{background:var(--noir);color:var(--porcelain)}
+.clinica .eyebrow{color:var(--brass-soft)}
+.clinica h2{font-size:clamp(2rem,4vw,3.2rem);margin:1.1rem 0 .75rem}
+.clinica .sub{color:var(--greige);font-weight:300;max-width:36rem}
+.galeria{
+  margin-top:3.5rem;display:grid;gap:1rem;
+  grid-template-columns:repeat(3,1fr);
+}
+.galeria figure{height:clamp(300px,42vh,460px)}
+.galeria img{width:100%;height:100%;object-fit:cover}
+.galeria-video{
+  margin-top:1rem;overflow:hidden;
+  height:clamp(320px,58vh,620px);
+}
+.galeria-video video{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:900px){
+  .galeria{grid-template-columns:1fr}
+  .galeria figure{height:clamp(240px,40vh,360px)}
+}
+.clinica .endereco{
+  margin-top:3rem;font-size:.88rem;color:var(--greige);
+}
+.clinica .endereco strong{
+  font-family:'Fraunces',serif;font-size:1.1rem;font-weight:400;
+  color:var(--porcelain);display:block;margin-bottom:.3rem;
+}
+
+/* ---------- procedimentos ---------- */
+.procedimentos{background:var(--graphite)}
+.procedimentos .note{
+  font-size:.82rem;color:var(--greige);font-style:italic;
+  padding-left:1.4rem;margin-top:1.8rem;max-width:30rem;line-height:1.8;
+  position:relative;
+}
+.procedimentos .note::before{
+  content:"";position:absolute;left:0;top:.35rem;bottom:.35rem;width:1px;
+  background:color-mix(in srgb,var(--brass-soft) 55%,transparent);
+}
+.destaque-tag{
+  display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--brass-soft);
+  margin-bottom:1.2rem;
+}
+.proc-grid{
+  margin-top:4.5rem;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(2rem,3.5vw,3.5rem);counter-reset:proc;
+}
+.proc-grid article{padding-top:.4rem;counter-increment:proc}
+.proc-grid h3{
+  font-family:'Fraunces',serif;font-weight:400;font-size:1.4rem;margin-bottom:.7rem;
+}
+.proc-grid h3::before{
+  content:counter(proc,decimal-leading-zero);
+  display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:300;
+  font-size:1.05rem;color:var(--brass-soft);opacity:.85;
+  margin-bottom:.9rem;letter-spacing:.03em;
+}
+.proc-grid p{font-size:.9rem;color:var(--greige)}
+@media(max-width:900px){.proc-grid{grid-template-columns:1fr}}
+.procedimentos .gap{margin-top:2rem}
+
+/* ---------- livro ---------- */
+.livro .split img{height:min(68vh,600px);object-position:center 15%}
+.livro blockquote{
+  font-family:'Fraunces',serif;font-style:italic;font-size:1.3rem;font-weight:300;
+  color:var(--walnut);margin:1.4rem 0;max-width:28rem;line-height:1.5;
+}
+
+/* ---------- contato ---------- */
+.contato{background:var(--charcoal);text-align:center}
+.contato h2{font-size:clamp(2.2rem,4.5vw,3.6rem);max-width:44rem;margin:1.25rem auto 1rem}
+.contato .sub{color:var(--greige);max-width:30rem;margin:0 auto 2.5rem}
+.btn-whats{
+  background:var(--brass);color:var(--noir);
+  padding:1.1rem 2.5rem;font-size:.85rem;
+}
+.btn-whats:hover{background:var(--brass-soft);transform:translateY(-2px)}
+.contato .locais{
+  margin-top:3.5rem;display:flex;justify-content:center;gap:4.5rem;flex-wrap:wrap;
+  font-size:.85rem;color:var(--greige);text-align:left;
+}
+.contato .locais strong{
+  display:block;font-family:'Fraunces',serif;font-weight:400;font-size:1.05rem;
+  color:var(--porcelain);margin-bottom:.35rem;
+}
+
+/* ---------- footer ---------- */
+footer{background:var(--noir);color:var(--taupe);padding-block:3.5rem;font-size:.8rem}
+footer .wrap{display:flex;flex-direction:column;gap:1.5rem}
+footer .top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+footer .top img{height:84px;width:auto}
+.compliance{
+  border-top:1px solid color-mix(in srgb,var(--taupe) 28%,transparent);
+  padding-top:1.5rem;line-height:2.1;
+}
+.compliance .gap{font-size:.64rem}
+footer nav{display:flex;gap:1.75rem;font-size:.78rem}
+footer nav a{color:var(--taupe)}
+footer nav a:hover{color:var(--brass-soft)}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header id="topbar">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="The Art Clinic by Luis Contin, início">
+      <img src="assets/logo.webp" alt="The Art Clinic by Luis Contin">
+    </a>
+    <nav>
+      <a href="#sobre">Dr. Contin</a>
+      <a href="#clinica">A Clínica</a>
+      <a href="#procedimentos">Procedimentos</a>
+      <a href="#livro">A Arte no Corpo</a>
+    </nav>
+    <a class="cta-mini" href="#contato">Agendar consulta</a>
+  </div>
+</header>
+
+<!-- ============ HERO — a clínica como portal de entrada ============ -->
+<section class="hero dark">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap reveal">
+    <p class="eyebrow" style="color:var(--brass-soft)">Cirurgia Plástica · Alphaville, São Paulo</p>
+    <h1 class="display">Cirurgia plástica como forma de <em>arte</em>.</h1>
+    <p class="lead">Dr. Luis Contin dedica-se à cirurgia plástica de alta precisão, com especialização em LipoHD. Todas as cirurgias são realizadas exclusivamente em ambiente hospitalar.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#contato">Agendar avaliação</a>
+      <a class="btn btn-ghost" href="#clinica">Conhecer a clínica</a>
+    </div>
+    <div class="hero-meta">
+      <span><strong>Hospital Albert Einstein</strong> · corpo clínico</span>
+      <span><strong>Rede São Luiz</strong> · corpo clínico</span>
+      <span class="gap">FALTA · CRM e RQE (obrigatório CFM)</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MANIFESTO — o corpo como arte ============ -->
+<section class="manifesto light">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Precisão técnica · Sensibilidade estética</p>
+      <p class="display">Cada procedimento é planejado individualmente, respeitando a anatomia, a proporção e a naturalidade de <em>cada corpo</em>.</p>
+    </div>
+    <figure class="reveal">
+      <img src="assets/palestra.webp" alt="Dr. Luis Contin em palestra, ao microfone" loading="lazy">
+      <figcaption>The Art Clinic · Alphaville</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ DR. CONTIN ============ -->
+<section class="sobre" id="sobre">
+  <div class="wrap split">
+    <figure class="reveal zoomable">
+      <img src="assets/sobre-editorial.webp" alt="Retrato do Dr. Luis Contin" loading="lazy">
+    </figure>
+    <div class="reveal">
+      <p class="eyebrow">São Paulo · Boston · Barcelona</p>
+      <h2 class="display">Dr. Luis <em>Contin</em></h2>
+      <p>Cirurgião plástico com formação no Brasil e no exterior, o Dr. Luis Contin construiu sua trajetória unindo rigor técnico e olhar estético, a convicção de que segurança e naturalidade caminham juntas.</p>
+      <ul class="cred">
+        <li>Membro da Sociedade Brasileira de Cirurgia Plástica <span class="gap">CONFIRMAR · categoria</span></li>
+        <li>Apprenticeship, Beth Israel Hospital, Harvard University (Boston, EUA)</li>
+        <li>Centro Médico Teknon, Barcelona, com Dr. Javier de Benito</li>
+        <li>Corpo clínico: Hospital Albert Einstein e Rede São Luiz</li>
+        <li>Autor de "Cirurgia Plástica — A Arte no Corpo"</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ A CLÍNICA ============ -->
+<section class="clinica dark" id="clinica">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Alameda Grajaú, 98 · Alphaville</p>
+      <h2 class="display">The Art Clinic</h2>
+      <p class="sub">Um espaço projetado para acolher: consultas, avaliações e acompanhamento pós-operatório em ambiente reservado, a minutos do Hospital Albert Einstein, Unidade Alphaville.</p>
+    </div>
+    <div class="galeria reveal">
+      <figure class="zoomable"><img src="assets/clinica-orquideas.webp" alt="Vista da recepção por trás das orquídeas" loading="lazy"></figure>
+      <figure class="zoomable"><img src="assets/clinica-lounge.webp" alt="Sala de espera da clínica" loading="lazy"></figure>
+      <figure class="zoomable"><img src="assets/consultorio-dr.webp" alt="Dr. Luis Contin no consultório" loading="lazy"></figure>
+    </div>
+    <!-- vídeo ambiente em loop, sem controles — troque o src pelo arquivo real em assets/ -->
+    <figure class="galeria-video reveal">
+      <video src="assets/VIDEO-2026-07-02-18-49-55.mp4" autoplay muted loop playsinline preload="metadata" poster="assets/clinica-lounge.webp"></video>
+    </figure>
+    <div class="endereco reveal">
+      <strong>Alphaville</strong>
+      Alameda Grajaú, 98 · Cj. 1002 · Barueri, SP
+      <span class="gap" style="margin-left:.75rem">CONFIRMAR · endereço atual</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCEDIMENTOS ============ -->
+<section class="procedimentos" id="procedimentos">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <p class="eyebrow">Procedimentos</p>
+        <h2 class="display">Lipo<em>HD</em></h2>
+        <span class="destaque-tag">Especialidade do Dr. Contin</span>
+        <p>A LipoHD é uma técnica de lipoaspiração que trabalha o contorno corporal com maior detalhamento, buscando definição muscular de aspecto natural. A indicação depende de avaliação individual: biotipo, qualidade da pele, histórico de saúde e expectativas realistas fazem parte da análise em consulta.</p>
+        <p class="note">Todo procedimento cirúrgico possui indicações, contraindicações, período de recuperação e riscos, que são detalhadamente esclarecidos em consulta. Os resultados variam de pessoa para pessoa.</p>
+      </div>
+      <figure class="frame reveal zoomable">
+        <img src="assets/retrato-estante.webp" alt="Dr. Luis Contin na The Art Clinic" loading="lazy">
+      </figure>
+    </div>
+    <div class="proc-grid reveal">
+      <article>
+        <h3>Abdominoplastia</h3>
+        <p>Cirurgia que trata o excesso de pele e a flacidez abdominal, com reposicionamento da musculatura quando indicado, frequente após gestações ou grandes variações de peso.</p>
+      </article>
+      <article>
+        <h3>Cirurgia da mama</h3>
+        <p>Aumento, redução ou levantamento mamário, planejados a partir da anatomia e da proporção de cada paciente, com escolha de técnica definida em consulta.</p>
+      </article>
+      <article>
+        <h3>Cirurgia da face</h3>
+        <p>Procedimentos que buscam a harmonia e a naturalidade dos traços, respeitando a expressão e a individualidade de cada rosto.</p>
+      </article>
+    </div>
+    <span class="gap">CONFIRMAR · lista real de procedimentos oferecidos + textos revisados pelo médico</span>
+  </div>
+</section>
+
+<!-- ============ A ARTE NO CORPO ============ -->
+<section class="livro light" id="livro">
+  <div class="wrap split">
+    <div class="reveal">
+      <p class="eyebrow">Livro · Editora Comunnicar</p>
+      <h2 class="display">A Arte no <em>Corpo</em></h2>
+      <blockquote>As maiores dúvidas sobre cirurgia plástica, respondidas com clareza, antes de qualquer decisão.</blockquote>
+      <p>Em "Cirurgia Plástica — A Arte no Corpo", o Dr. Luis Contin responde de forma clara e concisa às dúvidas mais frequentes sobre os diversos tipos de cirurgia plástica, um compromisso com a informação de qualidade e a decisão consciente do paciente.</p>
+      <span class="gap">FALTA · link de compra ou download do livro</span>
+    </div>
+    <figure class="frame reveal zoomable">
+      <img src="assets/livro.webp" alt="Dr. Luis Contin com o livro Cirurgia Plástica, A Arte no Corpo" loading="lazy">
+    </figure>
+  </div>
+</section>
+
+<!-- ============ CONTATO ============ -->
+<section class="contato" id="contato">
+  <div class="wrap reveal">
+    <p class="eyebrow">Consultas em Alphaville</p>
+    <h2 class="display">Comece pela <em>consulta</em>.</h2>
+    <p class="sub">A avaliação individual é o primeiro passo de qualquer procedimento. Agende diretamente pelo WhatsApp com a equipe da clínica.</p>
+    <a class="btn btn-whats" href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Luis%20Contin." target="_blank" rel="noopener">
+      Agendar pelo WhatsApp
+    </a>
+    <p style="margin-top:1rem"><span class="gap">FALTA · número oficial de WhatsApp (link atual é placeholder)</span></p>
+    <div class="locais">
+      <div><strong>Telefones</strong>(11) 4191-3899 · (11) 93937-5991<br><span class="gap">CONFIRMAR · telefones ativos</span></div>
+      <div><strong>Instagram</strong><a href="https://www.instagram.com/dr.luiscontin/" target="_blank" rel="noopener" style="color:var(--brass-soft)">@dr.luiscontin</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <img src="assets/logo.webp" alt="The Art Clinic by Luis Contin">
+      <nav>
+        <a href="#sobre">Dr. Contin</a>
+        <a href="#clinica">A Clínica</a>
+        <a href="#procedimentos">Procedimentos</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+    <div class="compliance">
+      Dr. Luis Contin Neto · MÉDICO · <span class="gap">FALTA · CRM-SP nº</span> · Cirurgia Plástica · <span class="gap">FALTA · RQE nº</span><br>
+      Este site tem caráter informativo e não substitui a consulta médica. Resultados de procedimentos variam individualmente.<br>
+      © 2026 The Art Clinic by Luis Contin · Alphaville. Todos os direitos reservados.
+    </div>
+  </div>
+</footer>
+
+<script>
+// reveal on scroll
+const io = new IntersectionObserver((entries)=>{
+  for(const e of entries){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// header transparente sobre o hero → sólido ao rolar
+const bar=document.getElementById('topbar');
+const onScroll=()=>bar.classList.toggle('solid',scrollY>innerHeight*.7);
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+</script>
+</body>
+</html>
