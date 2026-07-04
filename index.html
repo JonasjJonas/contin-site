@@ -126,7 +126,35 @@ header.solid nav a:hover{color:var(--brass-soft)}
 }
 header.solid .cta-mini{border-color:var(--porcelain);color:var(--porcelain)}
 .cta-mini:hover{background:var(--brass);border-color:var(--brass);color:var(--porcelain)!important}
-@media(max-width:900px){nav{display:none}}
+.nav-toggle{display:none}
+.only-mobile{display:none}
+@media(max-width:900px){
+  nav{
+    position:fixed;inset:0;z-index:60;
+    display:flex;flex-direction:column;justify-content:center;gap:1.9rem;
+    padding:var(--pad);
+    background:color-mix(in srgb,var(--noir) 97%,transparent);
+    backdrop-filter:blur(10px);
+    font-size:1.5rem;letter-spacing:.01em;
+    transform:translateX(100%);transition:transform .45s cubic-bezier(.22,1,.36,1);
+  }
+  nav a,header.solid nav a{color:var(--porcelain)}
+  nav a:hover,nav a:focus-visible{color:var(--brass-soft)}
+  .only-mobile{display:block;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-soft)}
+  body.menu-open{overflow:hidden}
+  body.menu-open nav{transform:none}
+  /* header não pode ter backdrop-filter com o menu aberto: viraria containing-block e prenderia o overlay fixo */
+  body.menu-open header{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom-color:transparent}
+  .nav-toggle{
+    display:inline-flex;flex-direction:column;justify-content:center;gap:6px;
+    width:40px;height:40px;padding:0;border:0;background:none;cursor:pointer;z-index:70;
+  }
+  .nav-toggle span{display:block;width:26px;height:2px;background:var(--porcelain);margin-inline:auto;transition:transform .3s,opacity .3s}
+  body.menu-open .nav-toggle span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  body.menu-open .nav-toggle span:nth-child(2){opacity:0}
+  body.menu-open .nav-toggle span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  .cta-mini{display:none}
+}
 
 /* ---------- hero: a clínica como portal de entrada ---------- */
 .hero{
@@ -306,6 +334,30 @@ footer .top img{height:84px;width:auto}
 footer nav{display:flex;gap:1.75rem;font-size:.78rem}
 footer nav a{color:var(--taupe)}
 footer nav a:hover{color:var(--brass-soft)}
+
+/* ---------- link de mapa + crédito da agência ---------- */
+.endereco .maps-link{
+  display:inline-block;margin-top:1rem;color:var(--brass-soft);
+  font-weight:500;font-size:.82rem;letter-spacing:.04em;transition:color .25s;
+}
+.endereco .maps-link:hover{color:var(--brass)}
+.credito{font-size:.72rem;color:color-mix(in srgb,var(--taupe) 85%,transparent)}
+.credito a{color:var(--brass-soft);transition:color .25s}
+.credito a:hover{color:var(--brass)}
+
+/* ---------- ajustes de celular (mobile-only, não afetam o desktop) ---------- */
+@media(max-width:900px){
+  section{padding-block:clamp(3.5rem,12vw,5.5rem)}
+  .brand img{height:44px}
+  .hero h1{font-size:clamp(2.1rem,8vw,3rem)}
+  .hero p.lead{font-size:1rem}
+  .hero-actions .btn{flex:1 1 auto;justify-content:center}
+  .manifesto img{height:min(56vh,420px)}
+  .sobre img{height:min(58vh,460px)}
+  .split img{height:min(58vh,440px)}
+  .livro .split img{height:min(54vh,420px)}
+  .contato .locais{gap:2rem;flex-direction:column;align-items:center;text-align:center}
+}
 </style>
 </head>
 <body>
@@ -321,8 +373,10 @@ footer nav a:hover{color:var(--brass-soft)}
       <a href="#clinica">A Clínica</a>
       <a href="#procedimentos">Procedimentos</a>
       <a href="#livro">A Arte no Corpo</a>
+      <a href="#contato" class="only-mobile">Agendar consulta</a>
     </nav>
     <a class="cta-mini" href="#contato">Agendar consulta</a>
+    <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -340,7 +394,7 @@ footer nav a:hover{color:var(--brass-soft)}
     <div class="hero-meta">
       <span><strong>Hospital Albert Einstein</strong> · corpo clínico</span>
       <span><strong>Rede São Luiz</strong> · corpo clínico</span>
-      <span class="gap">FALTA · CRM e RQE (obrigatório CFM)</span>
+      <span><strong>CRM-SP 98375</strong> · RQE 31773</span>
     </div>
   </div>
 </section>
@@ -399,8 +453,8 @@ footer nav a:hover{color:var(--brass-soft)}
     </figure>
     <div class="endereco reveal">
       <strong>Alphaville</strong>
-      Alameda Grajaú, 98 · Cj. 1002 · Barueri, SP
-      <span class="gap" style="margin-left:.75rem">CONFIRMAR · endereço atual</span>
+      Alameda Grajaú, 98 · Cj. 1002 · Alphaville · São Paulo · CEP 06.454-050
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Alameda%20Graja%C3%BA%2098%20Cj%201002%20Alphaville%2006454-050" target="_blank" rel="noopener">Ver no mapa →</a>
     </div>
   </div>
 </section>
@@ -460,10 +514,9 @@ footer nav a:hover{color:var(--brass-soft)}
     <p class="eyebrow">Consultas em Alphaville</p>
     <h2 class="display">Comece pela <em>consulta</em>.</h2>
     <p class="sub">A avaliação individual é o primeiro passo de qualquer procedimento. Agende diretamente pelo WhatsApp com a equipe da clínica.</p>
-    <a class="btn btn-whats" href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Luis%20Contin." target="_blank" rel="noopener">
+    <a class="btn btn-whats" href="https://wa.me/5511939375991?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Luis%20Contin." target="_blank" rel="noopener">
       Agendar pelo WhatsApp
     </a>
-    <p style="margin-top:1rem"><span class="gap">FALTA · número oficial de WhatsApp (link atual é placeholder)</span></p>
     <div class="locais">
       <div><strong>Telefones</strong>(11) 4191-3899 · (11) 93937-5991<br><span class="gap">CONFIRMAR · telefones ativos</span></div>
       <div><strong>Instagram</strong><a href="https://www.instagram.com/dr.luiscontin/" target="_blank" rel="noopener" style="color:var(--brass-soft)">@dr.luiscontin</a></div>
@@ -484,9 +537,10 @@ footer nav a:hover{color:var(--brass-soft)}
       </nav>
     </div>
     <div class="compliance">
-      Dr. Luis Contin Neto · MÉDICO · <span class="gap">FALTA · CRM-SP nº</span> · Cirurgia Plástica · <span class="gap">FALTA · RQE nº</span><br>
+      Dr. Luis Contin Neto · MÉDICO · CRM-SP 98375 · Cirurgia Plástica · RQE 31773<br>
       Este site tem caráter informativo e não substitui a consulta médica. Resultados de procedimentos variam individualmente.<br>
-      © 2026 The Art Clinic by Luis Contin · Alphaville. Todos os direitos reservados.
+      © 2026 The Art Clinic by Luis Contin · Alphaville. Todos os direitos reservados.<br>
+      <span class="credito">Site por <a href="mailto:contato@incisadigital.com.br">Incisa Digital</a></span>
     </div>
   </div>
 </footer>
@@ -497,6 +551,20 @@ const io = new IntersectionObserver((entries)=>{
   for(const e of entries){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }
 },{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// menu mobile (hambúrguer)
+const navToggle=document.querySelector('.nav-toggle');
+const headerNav=document.querySelector('header nav');
+if(navToggle&&headerNav){
+  navToggle.addEventListener('click',()=>{
+    const open=document.body.classList.toggle('menu-open');
+    navToggle.setAttribute('aria-expanded',open);
+  });
+  headerNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    document.body.classList.remove('menu-open');
+    navToggle.setAttribute('aria-expanded','false');
+  }));
+}
 
 // header transparente sobre o hero → sólido ao rolar
 const bar=document.getElementById('topbar');
