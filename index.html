@@ -46,6 +46,7 @@ body{
   color:var(--porcelain);
   line-height:1.7;
   -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
@@ -129,20 +130,21 @@ header.solid .cta-mini{border-color:var(--porcelain);color:var(--porcelain)}
 .nav-toggle{display:none}
 .only-mobile{display:none}
 @media(max-width:900px){
-  nav{
+  header nav{
     position:fixed;inset:0;z-index:60;
     display:flex;flex-direction:column;justify-content:center;gap:1.9rem;
     padding:var(--pad);
-    background:color-mix(in srgb,var(--noir) 97%,transparent);
-    backdrop-filter:blur(10px);
+    background:color-mix(in srgb,var(--noir) 98%,transparent);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     font-size:1.5rem;letter-spacing:.01em;
-    transform:translateX(100%);transition:transform .45s cubic-bezier(.22,1,.36,1);
+    opacity:0;visibility:hidden;pointer-events:none;transform:translateY(12px);
+    transition:opacity .35s ease,transform .35s ease,visibility .35s;
   }
-  nav a,header.solid nav a{color:var(--porcelain)}
-  nav a:hover,nav a:focus-visible{color:var(--brass-soft)}
+  header nav a,header.solid nav a{color:var(--porcelain)}
+  header nav a:hover,header nav a:focus-visible{color:var(--brass-soft)}
   .only-mobile{display:block;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-soft)}
   body.menu-open{overflow:hidden}
-  body.menu-open nav{transform:none}
+  body.menu-open header nav{opacity:1;visibility:visible;pointer-events:auto;transform:none}
   /* header não pode ter backdrop-filter com o menu aberto: viraria containing-block e prenderia o overlay fixo */
   body.menu-open header{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom-color:transparent}
   .nav-toggle{
@@ -357,6 +359,8 @@ footer nav a:hover{color:var(--brass-soft)}
   .split img{height:min(58vh,440px)}
   .livro .split img{height:min(54vh,420px)}
   .contato .locais{gap:2rem;flex-direction:column;align-items:center;text-align:center}
+  footer .top{flex-direction:column;align-items:flex-start}
+  footer nav{flex-wrap:wrap;gap:1rem 1.5rem}
 }
 </style>
 </head>
