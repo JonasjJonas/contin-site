@@ -262,11 +262,27 @@ header.solid .cta-mini{border-color:var(--porcelain);color:var(--porcelain)}
 }
 .galeria figure{height:clamp(300px,42vh,460px)}
 .galeria img{width:100%;height:100%;object-fit:cover}
-.galeria-video{
-  margin-top:1rem;overflow:hidden;
-  height:clamp(320px,58vh,620px);
+.clinica-video{
+  margin-top:clamp(2.5rem,5vw,3.5rem);
+  display:grid;grid-template-columns:1fr auto;gap:clamp(2rem,6vw,5rem);
+  align-items:center;
 }
-.galeria-video video{width:100%;height:100%;object-fit:cover;display:block}
+.cv-text{max-width:30rem}
+.cv-kicker{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--brass-soft);font-weight:600}
+.cv-line{
+  font-family:'Fraunces',serif;font-weight:300;line-height:1.25;letter-spacing:-.01em;
+  font-size:clamp(1.5rem,2.8vw,2.2rem);color:var(--porcelain);margin-top:1rem;
+}
+.cv-line em{font-style:italic;color:var(--brass-soft)}
+.cv-media{
+  width:min(340px,80vw);aspect-ratio:9/16;overflow:hidden;border-radius:4px;
+  border:1px solid color-mix(in srgb,var(--brass) 22%,transparent);justify-self:end;
+}
+.cv-media video{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:900px){
+  .clinica-video{grid-template-columns:1fr;justify-items:center;text-align:center;gap:2rem}
+  .cv-media{justify-self:center}
+}
 @media(max-width:900px){
   .galeria{grid-template-columns:1fr}
   .galeria figure{height:clamp(240px,40vh,360px)}
@@ -537,10 +553,15 @@ footer nav a:hover{color:var(--brass-soft)}
       <figure class="zoomable"><img src="assets/clinica-lounge.webp" alt="Sala de espera da clínica" loading="lazy"></figure>
       <figure class="zoomable"><img src="assets/consultorio-dr.webp" alt="Dr. Luis Contin no consultório" loading="lazy"></figure>
     </div>
-    <!-- vídeo ambiente em loop, sem controles — troque o src pelo arquivo real em assets/ -->
-    <figure class="galeria-video reveal">
-      <video src="assets/VIDEO-2026-07-02-18-49-55.mp4" autoplay muted loop playsinline preload="metadata" poster="assets/clinica-lounge.webp"></video>
-    </figure>
+    <div class="clinica-video reveal">
+      <div class="cv-text">
+        <p class="cv-kicker">O ambiente</p>
+        <p class="cv-line">Um espaço pensado para o conforto e a discrição de <em>cada paciente</em>, do primeiro contato ao acompanhamento.</p>
+      </div>
+      <figure class="cv-media">
+        <video src="assets/clinica-ambiente.mp4" autoplay muted loop playsinline preload="metadata" poster="assets/clinica-video-poster.jpg"></video>
+      </figure>
+    </div>
     <div class="endereco reveal">
       <strong>Alphaville</strong>
       Alameda Grajaú, 98 · Cj. 1002 · Alphaville · São Paulo · CEP 06.454-050
