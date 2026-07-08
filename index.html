@@ -24,7 +24,7 @@
   --taupe-deep:#655C51;
   --walnut:#6E4F37;
   --brass:#B08D57;
-  --brass-link:#7E6236;
+  --brass-link:#725A2E;
   --brass-soft:#C9AC7A;
   --amber:#C8862B;
   --ink:#1C1916;
@@ -33,7 +33,8 @@
   --noir:#16110B;
   --charcoal:#201811;
   --graphite:#241B12;
-  --stone:#EDE7DB;
+  --stone:#E6DAC4;
+  --stone-soft:#EBE0CD;
   --max:1240px;
   --pad:clamp(1.25rem,4vw,3rem);
 }
@@ -65,8 +66,12 @@ a{color:inherit;text-decoration:none}
 .light .display em{color:var(--brass-link)}
 section{padding-block:clamp(5rem,10vw,8.5rem)}
 
-/* respiro claro — seções em tom mais claro para quebrar o ritmo do escuro */
-.light{background:var(--stone);color:var(--ink)}
+/* respiro claro — bege quente; bordas com degradê suave para transição natural com o escuro */
+.light{background:linear-gradient(180deg,var(--stone-soft),var(--stone));color:var(--ink);position:relative}
+.light .wrap{position:relative;z-index:1}
+.light::before,.light::after{content:"";position:absolute;left:0;right:0;height:70px;pointer-events:none;z-index:0}
+.light::before{top:0;background:linear-gradient(to bottom,rgba(22,17,11,.13),transparent)}
+.light::after{bottom:0;background:linear-gradient(to top,rgba(22,17,11,.13),transparent)}
 .light .eyebrow{color:var(--brass-link)}
 .light .split p{color:var(--ink-soft)}
 
@@ -235,6 +240,16 @@ header.solid .cta-mini{border-color:var(--porcelain);color:var(--porcelain)}
 }
 .cred li:last-child{border-bottom:none}
 .sobre img{width:100%;height:min(76vh,680px);object-fit:cover;object-position:center 20%}
+.cred-wrap{
+  display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(2.5rem,5vw,5rem);
+  margin-top:clamp(3rem,6vw,4.5rem);
+}
+.cred-group h4{
+  font-family:'Fraunces',serif;font-weight:400;font-size:1.1rem;
+  color:var(--brass-soft);margin-bottom:.4rem;letter-spacing:.01em;
+}
+.cred-group .cred{margin-top:.3rem;max-width:none}
+@media(max-width:900px){.cred-wrap{grid-template-columns:1fr;gap:2.5rem;margin-top:2.5rem}}
 
 /* ---------- clínica (galeria) ---------- */
 .clinica{background:var(--noir);color:var(--porcelain)}
@@ -264,39 +279,89 @@ header.solid .cta-mini{border-color:var(--porcelain);color:var(--porcelain)}
   color:var(--porcelain);display:block;margin-bottom:.3rem;
 }
 
-/* ---------- procedimentos ---------- */
+/* ---------- procedimentos (categorias) ---------- */
 .procedimentos{background:var(--graphite)}
+.proc-head{max-width:52rem}
+.proc-head .display{font-size:clamp(2rem,4.2vw,3.2rem);margin:1.1rem 0 0}
+.proc-lead{color:var(--greige);font-weight:300;max-width:40rem;margin-top:1.3rem}
+.cat-grid{
+  margin-top:clamp(3rem,6vw,4.5rem);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
+}
+.cat-card{
+  position:relative;display:flex;flex-direction:column;text-align:left;
+  min-height:clamp(300px,30vw,380px);
+  padding:1.9rem 1.6rem 1.7rem;cursor:pointer;color:var(--porcelain);
+  background:linear-gradient(160deg,color-mix(in srgb,var(--porcelain) 7%,transparent),transparent);
+  border:1px solid color-mix(in srgb,var(--porcelain) 12%,transparent);
+  border-radius:3px;font-family:inherit;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s,background .35s;
+}
+.cat-card:hover,.cat-card:focus-visible{
+  transform:translateY(-5px);outline:none;
+  border-color:color-mix(in srgb,var(--brass) 55%,transparent);
+  background:linear-gradient(160deg,color-mix(in srgb,var(--porcelain) 11%,transparent),transparent);
+}
+.cat-card .cat-num{
+  font-family:'Fraunces',serif;font-style:italic;font-weight:300;
+  font-size:1rem;color:var(--brass-soft);opacity:.8;letter-spacing:.03em;
+}
+.cat-card h3{
+  font-family:'Fraunces',serif;font-weight:400;font-size:clamp(1.3rem,1.6vw,1.55rem);
+  margin-top:auto;margin-bottom:.6rem;line-height:1.15;
+}
+.cat-card p{font-size:.85rem;color:var(--greige);line-height:1.6;margin-bottom:1.1rem}
+.cat-card .cat-more{
+  font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--brass-soft);transition:letter-spacing .3s;
+}
+.cat-card:hover .cat-more{letter-spacing:.2em}
 .procedimentos .note{
-  font-size:.82rem;color:var(--greige);font-style:italic;
-  padding-left:1.4rem;margin-top:1.8rem;max-width:30rem;line-height:1.8;
-  position:relative;
+  font-size:.82rem;color:var(--greige);font-style:italic;position:relative;
+  padding-left:1.4rem;margin-top:clamp(2.5rem,5vw,3.5rem);max-width:46rem;line-height:1.8;
 }
 .procedimentos .note::before{
   content:"";position:absolute;left:0;top:.35rem;bottom:.35rem;width:1px;
   background:color-mix(in srgb,var(--brass-soft) 55%,transparent);
 }
-.destaque-tag{
-  display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--brass-soft);
-  margin-bottom:1.2rem;
+@media(max-width:900px){.cat-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.cat-grid{grid-template-columns:1fr}.cat-card{min-height:0}}
+
+/* ---------- modal de procedimentos ---------- */
+body.modal-open{overflow:hidden}
+.proc-modal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:clamp(1rem,4vw,2.5rem)}
+.proc-modal.open{display:flex}
+.proc-modal-backdrop{position:absolute;inset:0;background:rgba(10,8,6,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.proc-modal-panel{
+  position:relative;z-index:1;width:100%;max-width:660px;max-height:88vh;overflow-y:auto;
+  background:var(--stone);color:var(--ink);
+  padding:clamp(2rem,5vw,3.5rem);border-radius:4px;
+  box-shadow:0 40px 90px rgba(0,0,0,.55);
+  animation:modal-in .4s cubic-bezier(.22,1,.36,1);
 }
-.proc-grid{
-  margin-top:4.5rem;display:grid;grid-template-columns:repeat(3,1fr);
-  gap:clamp(2rem,3.5vw,3.5rem);counter-reset:proc;
+@keyframes modal-in{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+.proc-modal .modal-eyebrow{color:var(--brass-link)}
+.proc-modal .modal-title{font-size:clamp(1.7rem,4vw,2.4rem);color:var(--ink);margin:.5rem 0 .7rem}
+.proc-modal .modal-desc{color:var(--ink-soft);max-width:48ch;margin-bottom:1.6rem;font-weight:300}
+.modal-list{list-style:none}
+.modal-list li{padding:1.05rem 0;border-bottom:1px solid color-mix(in srgb,var(--ink) 12%,transparent)}
+.modal-list li:last-child{border-bottom:none}
+.modal-list h4{font-family:'Fraunces',serif;font-weight:400;font-size:1.2rem;color:var(--ink);margin-bottom:.25rem}
+.modal-list p{font-size:.88rem;color:var(--ink-soft);line-height:1.6}
+.proc-modal-close{
+  position:absolute;top:.9rem;right:1rem;z-index:2;
+  width:40px;height:40px;border:0;background:none;cursor:pointer;
+  font-size:1.9rem;line-height:1;color:var(--taupe-deep);transition:color .25s;
 }
-.proc-grid article{padding-top:.4rem;counter-increment:proc}
-.proc-grid h3{
-  font-family:'Fraunces',serif;font-weight:400;font-size:1.4rem;margin-bottom:.7rem;
+.proc-modal-close:hover{color:var(--ink)}
+.modal-cta{
+  display:inline-flex;align-items:center;gap:.5rem;margin-top:1.8rem;
+  background:var(--ink);color:var(--stone);
+  padding:.85rem 1.8rem;border-radius:2px;
+  font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  transition:background .3s;
 }
-.proc-grid h3::before{
-  content:counter(proc,decimal-leading-zero);
-  display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:300;
-  font-size:1.05rem;color:var(--brass-soft);opacity:.85;
-  margin-bottom:.9rem;letter-spacing:.03em;
-}
-.proc-grid p{font-size:.9rem;color:var(--greige)}
-@media(max-width:900px){.proc-grid{grid-template-columns:1fr}}
-.procedimentos .gap{margin-top:2rem}
+.modal-cta:hover{background:var(--brass-link);color:var(--stone)}
 
 /* ---------- livro ---------- */
 .livro .split img{height:min(68vh,600px);object-position:center 15%}
@@ -424,15 +489,38 @@ footer nav a:hover{color:var(--brass-soft)}
       <img src="assets/sobre-editorial.webp" alt="Retrato do Dr. Luis Contin" loading="lazy">
     </figure>
     <div class="reveal">
-      <p class="eyebrow">São Paulo · Boston · Barcelona</p>
+      <p class="eyebrow">São Paulo · Alphaville</p>
       <h2 class="display">Dr. Luis <em>Contin</em></h2>
-      <p>Cirurgião plástico com formação no Brasil e no exterior, o Dr. Luis Contin construiu sua trajetória unindo rigor técnico e olhar estético, a convicção de que segurança e naturalidade caminham juntas.</p>
+      <p>Cirurgião plástico com formação no Brasil e no exterior, o Dr. Luis Contin construiu sua trajetória unindo rigor técnico e olhar estético, com a convicção de que segurança e naturalidade caminham juntas.</p>
+      <p>Membro titular da Sociedade Brasileira de Cirurgia Plástica, dedica-se à cirurgia do corpo e da face, com atuação nos principais hospitais de São Paulo.</p>
+    </div>
+  </div>
+  <div class="wrap cred-wrap reveal">
+    <div class="cred-group">
+      <h4>Formação, títulos &amp; atuação</h4>
       <ul class="cred">
-        <li>Membro da Sociedade Brasileira de Cirurgia Plástica <span class="gap">CONFIRMAR · categoria</span></li>
-        <li>Apprenticeship, Beth Israel Hospital, Harvard University (Boston, EUA)</li>
-        <li>Centro Médico Teknon, Barcelona, com Dr. Javier de Benito</li>
-        <li>Corpo clínico: Hospital Albert Einstein e Rede São Luiz</li>
-        <li>Autor de "Cirurgia Plástica — A Arte no Corpo"</li>
+        <li>Cirurgião Plástico pela Sociedade Brasileira de Cirurgia Plástica</li>
+        <li>Título de Especialista pela Sociedade Brasileira de Cirurgia Plástica</li>
+        <li>Membro Titular da Sociedade Brasileira de Cirurgia Plástica</li>
+        <li>Membro da International Society of Aesthetic Plastic Surgery (ISAPS)</li>
+        <li>Cirurgião Geral pelo Hospital do Servidor do Estado de São Paulo</li>
+        <li>Residência em Cirurgia Plástica pela Unisanta · Serviço Dr. Ewaldo Bolivar, sob regência do Dr. Osvaldo Saldanha</li>
+        <li>Médico do Hospital Israelita Albert Einstein</li>
+        <li>Estágio na Clínica Ivo Pitanguy · Rio de Janeiro</li>
+        <li>Vários trabalhos publicados e apresentados em congressos internacionais</li>
+      </ul>
+    </div>
+    <div class="cred-group">
+      <h4>Publicações</h4>
+      <ul class="cred">
+        <li>Autor do livro "Cirurgia Plástica — A Arte no Corpo"</li>
+        <li>Coautor do livro "Lipo de Definição — 3ª Geração da Lipoaspiração"</li>
+      </ul>
+      <h4 style="margin-top:2.2rem">Experiência internacional</h4>
+      <ul class="cred">
+        <li>Apprenticeship na Universidade de Harvard · Boston, EUA</li>
+        <li>Fellowship no Centro Médico Teknon · Barcelona, Espanha</li>
+        <li>Estágio na Mannheimer Klinik · Mannheim, Alemanha</li>
       </ul>
     </div>
   </div>
@@ -466,35 +554,53 @@ footer nav a:hover{color:var(--brass-soft)}
 <!-- ============ PROCEDIMENTOS ============ -->
 <section class="procedimentos" id="procedimentos">
   <div class="wrap">
-    <div class="split">
-      <div class="reveal">
-        <p class="eyebrow">Procedimentos</p>
-        <h2 class="display">Lipo<em>HD</em></h2>
-        <span class="destaque-tag">Especialidade do Dr. Contin</span>
-        <p>A LipoHD é uma técnica de lipoaspiração que trabalha o contorno corporal com maior detalhamento, buscando definição muscular de aspecto natural. A indicação depende de avaliação individual: biotipo, qualidade da pele, histórico de saúde e expectativas realistas fazem parte da análise em consulta.</p>
-        <p class="note">Todo procedimento cirúrgico possui indicações, contraindicações, período de recuperação e riscos, que são detalhadamente esclarecidos em consulta. Os resultados variam de pessoa para pessoa.</p>
-      </div>
-      <figure class="frame reveal zoomable">
-        <img src="assets/retrato-estante.webp" alt="Dr. Luis Contin na The Art Clinic" loading="lazy">
-      </figure>
+    <div class="proc-head reveal">
+      <p class="eyebrow">Procedimentos</p>
+      <h2 class="display">Cirurgia plástica <em>do corpo e da face</em>.</h2>
+      <p class="proc-lead">Cada plano cirúrgico é construído a partir da anatomia, do histórico médico e das expectativas de cada paciente. A indicação começa sempre pela avaliação individual, com as cirurgias realizadas em ambiente hospitalar.</p>
     </div>
-    <div class="proc-grid reveal">
-      <article>
-        <h3>Abdominoplastia</h3>
-        <p>Cirurgia que trata o excesso de pele e a flacidez abdominal, com reposicionamento da musculatura quando indicado, frequente após gestações ou grandes variações de peso.</p>
-      </article>
-      <article>
-        <h3>Cirurgia da mama</h3>
-        <p>Aumento, redução ou levantamento mamário, planejados a partir da anatomia e da proporção de cada paciente, com escolha de técnica definida em consulta.</p>
-      </article>
-      <article>
-        <h3>Cirurgia da face</h3>
-        <p>Procedimentos que buscam a harmonia e a naturalidade dos traços, respeitando a expressão e a individualidade de cada rosto.</p>
-      </article>
+    <div class="cat-grid reveal">
+      <button class="cat-card" data-cat="corporais">
+        <span class="cat-num">01</span>
+        <h3>Cirurgias Corporais</h3>
+        <p>Lipoaspiração, contorno corporal e cirurgias pós-emagrecimento.</p>
+        <span class="cat-more">Ver procedimentos →</span>
+      </button>
+      <button class="cat-card" data-cat="mamarias">
+        <span class="cat-num">02</span>
+        <h3>Cirurgias Mamárias</h3>
+        <p>Aumento, redução e reposicionamento mamário.</p>
+        <span class="cat-more">Ver procedimentos →</span>
+      </button>
+      <button class="cat-card" data-cat="face">
+        <span class="cat-num">03</span>
+        <h3>Face e Pescoço</h3>
+        <p>Ritidoplastia, blefaroplastia, rinoplastia e otoplastia.</p>
+        <span class="cat-more">Ver procedimentos →</span>
+      </button>
+      <button class="cat-card" data-cat="consultorio">
+        <span class="cat-num">04</span>
+        <h3>Procedimentos de Consultório</h3>
+        <p>Toxina botulínica e preenchimento com ácido hialurônico.</p>
+        <span class="cat-more">Ver procedimentos →</span>
+      </button>
     </div>
-    <span class="gap">CONFIRMAR · lista real de procedimentos oferecidos + textos revisados pelo médico</span>
+    <p class="note">Todo procedimento possui indicações, contraindicações, período de recuperação e riscos, detalhadamente esclarecidos em consulta. Os resultados variam de pessoa para pessoa.</p>
   </div>
 </section>
+
+<!-- modal de procedimentos por categoria -->
+<div class="proc-modal" id="procModal" aria-hidden="true">
+  <div class="proc-modal-backdrop" data-close></div>
+  <div class="proc-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="proc-modal-close" data-close aria-label="Fechar">×</button>
+    <p class="eyebrow modal-eyebrow">Procedimentos</p>
+    <h3 class="display modal-title" id="modalTitle"></h3>
+    <p class="modal-desc"></p>
+    <ul class="modal-list"></ul>
+    <a class="modal-cta" href="#contato" data-close>Agendar avaliação</a>
+  </div>
+</div>
 
 <!-- ============ A ARTE NO CORPO ============ -->
 <section class="livro light" id="livro">
@@ -568,6 +674,57 @@ if(navToggle&&headerNav){
     document.body.classList.remove('menu-open');
     navToggle.setAttribute('aria-expanded','false');
   }));
+}
+
+// modal de procedimentos por categoria
+const CATS={
+  corporais:{title:'Cirurgias Corporais',desc:'Procedimentos voltados ao contorno e à harmonia do corpo, com planejamento individualizado.',items:[
+    ['Lipoaspiração','Remodelação do contorno corporal com retirada seletiva de gordura localizada, incluindo a técnica de alta definição (LipoHD).'],
+    ['Lipoabdominoplastia','Combinação de lipoaspiração e abdominoplastia, tratando contorno e flacidez em um único tempo cirúrgico.'],
+    ['Abdominoplastia','Tratamento do excesso de pele e da flacidez abdominal, com reposicionamento da musculatura quando indicado.'],
+    ['Gluteoplastia','Contorno e projeção da região glútea, com planejamento individualizado.']
+  ]},
+  mamarias:{title:'Cirurgias Mamárias',desc:'Cirurgias da mama planejadas a partir da anatomia e da proporção de cada paciente.',items:[
+    ['Mamoplastia de aumento','Aumento das mamas com implantes, definido em consulta conforme a anatomia e os objetivos.'],
+    ['Mamoplastia redutora','Redução do volume mamário, aliviando desconfortos e reequilibrando as proporções.'],
+    ['Mastopexia','Levantamento e reposicionamento das mamas, com ou sem uso de implantes.']
+  ]},
+  face:{title:'Face e Pescoço',desc:'Procedimentos que buscam harmonia e naturalidade, respeitando a expressão de cada rosto.',items:[
+    ['Ritidoplastia','Lifting facial: reposicionamento dos tecidos da face e do pescoço em busca de aparência natural.'],
+    ['Blefaroplastia','Correção do excesso de pele e das bolsas nas pálpebras, para um olhar mais descansado.'],
+    ['Rinoplastia','Cirurgia do nariz, harmonizando forma e função respiratória.'],
+    ['Otoplastia','Correção do posicionamento e do formato das orelhas.']
+  ]},
+  consultorio:{title:'Procedimentos de Consultório',desc:'Procedimentos estéticos faciais realizados em consultório.',items:[
+    ['Toxina Botulínica','Suavização de linhas de expressão, com resultado natural.'],
+    ['Preenchimento com Ácido Hialurônico','Restauração de volume e contorno facial de forma gradual e natural.']
+  ]}
+};
+const procModal=document.getElementById('procModal');
+if(procModal){
+  const mTitle=procModal.querySelector('.modal-title');
+  const mDesc=procModal.querySelector('.modal-desc');
+  const mList=procModal.querySelector('.modal-list');
+  const openCat=(key)=>{
+    const c=CATS[key]; if(!c) return;
+    mTitle.textContent=c.title;
+    mDesc.textContent=c.desc;
+    mList.innerHTML=c.items.map(it=>'<li><h4>'+it[0]+'</h4><p>'+it[1]+'</p></li>').join('');
+    procModal.classList.add('open');
+    procModal.setAttribute('aria-hidden','false');
+    procModal.querySelector('.proc-modal-panel').scrollTop=0;
+    document.body.classList.add('modal-open');
+  };
+  const closeModal=()=>{
+    procModal.classList.remove('open');
+    procModal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('modal-open');
+  };
+  document.querySelectorAll('.cat-card').forEach(card=>{
+    card.addEventListener('click',()=>openCat(card.dataset.cat));
+  });
+  procModal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closeModal));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 }
 
 // header transparente sobre o hero → sólido ao rolar
