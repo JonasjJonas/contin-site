@@ -213,7 +213,7 @@ header.solid .cta-mini{border-color:var(--porcelain);color:var(--porcelain)}
 }
 .manifesto .display{font-size:clamp(1.8rem,3.4vw,2.6rem);margin-top:1.25rem}
 .manifesto figure{position:relative}
-.manifesto img{width:100%;height:min(74vh,660px);object-fit:cover;object-position:center 15%}
+.manifesto img{width:100%;height:auto;display:block}
 .manifesto figcaption{
   margin-top:.7rem;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe-deep);
 }
@@ -359,11 +359,21 @@ body.modal-open{overflow:hidden}
 .proc-modal .modal-eyebrow{color:var(--brass-link)}
 .proc-modal .modal-title{font-size:clamp(1.7rem,4vw,2.4rem);color:var(--ink);margin:.5rem 0 .7rem}
 .proc-modal .modal-desc{color:var(--ink-soft);max-width:48ch;margin-bottom:1.6rem;font-weight:300}
+.modal-hint{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-link);margin-bottom:.4rem;font-weight:600}
 .modal-list{list-style:none}
-.modal-list li{padding:1.05rem 0;border-bottom:1px solid color-mix(in srgb,var(--ink) 12%,transparent)}
-.modal-list li:last-child{border-bottom:none}
-.modal-list h4{font-family:'Fraunces',serif;font-weight:400;font-size:1.2rem;color:var(--ink);margin-bottom:.25rem}
-.modal-list p{font-size:.88rem;color:var(--ink-soft);line-height:1.6}
+.modal-list .acc-item{border-bottom:1px solid color-mix(in srgb,var(--ink) 14%,transparent)}
+.modal-list .acc-item:last-child{border-bottom:none}
+.acc-head{
+  width:100%;display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  background:none;border:0;cursor:pointer;text-align:left;padding:1.1rem 0;
+  font-family:'Fraunces',serif;font-weight:400;font-size:1.2rem;color:var(--ink);transition:color .25s;
+}
+.acc-head:hover{color:var(--brass-link)}
+.acc-ico{font-size:1.5rem;line-height:1;color:var(--brass-link);transition:transform .3s;flex:none}
+.acc-item.open .acc-ico{transform:rotate(45deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .45s ease}
+.acc-item.open .acc-body{max-height:600px}
+.acc-body p{font-size:.9rem;color:var(--ink-soft);line-height:1.7;padding-bottom:1.15rem;max-width:56ch}
 .proc-modal-close{
   position:absolute;top:.9rem;right:1rem;z-index:2;
   width:40px;height:40px;border:0;background:none;cursor:pointer;
@@ -435,7 +445,6 @@ footer nav a:hover{color:var(--brass-soft)}
   .hero h1{font-size:clamp(2.1rem,8vw,3rem)}
   .hero p.lead{font-size:1rem}
   .hero-actions .btn{flex:1 1 auto;justify-content:center}
-  .manifesto img{height:min(56vh,420px)}
   .sobre img{height:min(58vh,460px)}
   .split img{height:min(58vh,440px)}
   .livro .split img{height:min(54vh,420px)}
@@ -616,6 +625,7 @@ footer nav a:hover{color:var(--brass-soft)}
     <p class="eyebrow modal-eyebrow">Procedimentos</p>
     <h3 class="display modal-title" id="modalTitle"></h3>
     <p class="modal-desc"></p>
+    <p class="modal-hint">Selecione um procedimento para ver os detalhes</p>
     <ul class="modal-list"></ul>
     <a class="modal-cta" href="#contato" data-close>Agendar avaliação</a>
   </div>
@@ -697,24 +707,24 @@ if(navToggle&&headerNav){
 
 // modal de procedimentos por categoria
 const CATS={
-  corporais:{title:'Cirurgias Corporais',desc:'Procedimentos voltados ao contorno e à harmonia do corpo, com planejamento individualizado.',items:[
-    ['Lipoaspiração em alta definição','Remodelação do contorno corporal com retirada seletiva de gordura e realce da definição muscular (LipoHD).'],
-    ['Lipoabdominoplastia','Combinação de lipoaspiração e abdominoplastia, tratando contorno e flacidez em um único tempo cirúrgico.'],
-    ['Abdominoplastia','Tratamento do excesso de pele e da flacidez abdominal, com reposicionamento da musculatura quando indicado.'],
-    ['Gluteoplastia','Contorno e projeção da região glútea, com planejamento individualizado.']
+  corporais:{title:'Cirurgias Corporais',desc:'Procedimentos voltados ao contorno e à harmonia do corpo, sempre com planejamento individualizado.',items:[
+    ['Lipoaspiração em alta definição','Recurso para esculpir o contorno corporal com a retirada de gordura localizada, podendo reintroduzi-la em outras áreas (lipoescultura). Na alta definição (LipoHD), o objetivo é realçar as proporções e a musculatura de forma natural.'],
+    ['Lipoabdominoplastia','Técnica de contorno corporal que une a lipoaspiração à abdominoplastia em um único tempo, preservando vasos e nervos do abdômen. Reduz a gordura, trata a flacidez de pele e reforça a musculatura, com recuperação mais rápida que a abdominoplastia tradicional.'],
+    ['Abdominoplastia','Cirurgia do abdome que remove o excesso de pele e de gordura e trata a flacidez, frequente após gestações ou grandes variações de peso, com reposicionamento da musculatura quando indicado.'],
+    ['Gluteoplastia','Modelagem da região glútea, em geral com prótese, para dar firmeza, projeção e uma forma mais harmoniosa. A indicação é definida individualmente, conforme a anatomia de cada paciente.']
   ]},
   mamarias:{title:'Cirurgias Mamárias',desc:'Cirurgias da mama planejadas a partir da anatomia e da proporção de cada paciente.',items:[
-    ['Mamoplastia de aumento','Aumento das mamas com implantes, definido em consulta conforme a anatomia e os objetivos.'],
-    ['Mamoplastia redutora','Redução do volume mamário, aliviando desconfortos e reequilibrando as proporções.'],
-    ['Mastopexia','Levantamento e reposicionamento das mamas, com ou sem uso de implantes.']
+    ['Mamoplastia de aumento','Aumento das mamas com implantes (próteses), com incisões planejadas para deixar as cicatrizes discretas. A técnica e o volume são definidos em consulta, a partir da anatomia de cada paciente.'],
+    ['Mamoplastia redutora','Redução do volume das mamas, melhorando a forma e aliviando desconfortos posturais e de saúde associados a mamas muito grandes, com cicatrizes posicionadas de forma discreta.'],
+    ['Mastopexia','Levantamento das mamas: remove o excesso de pele decorrente da gestação ou de variações de peso, reposicionando a mama. Pode ser associada a implantes para melhorar forma e volume.']
   ]},
   face:{title:'Face e Pescoço',desc:'Procedimentos que buscam harmonia e naturalidade, respeitando a expressão de cada rosto.',items:[
-    ['Blefaroplastia','Correção do excesso de pele e das bolsas nas pálpebras, para um olhar mais descansado.'],
-    ['Otoplastia','Correção do posicionamento e do formato das orelhas.']
+    ['Blefaroplastia','Cirurgia das pálpebras que corrige o excesso de pele e as bolsas, para um olhar mais descansado. A avaliação considera idade, textura da pele e eventuais fatores clínicos associados.'],
+    ['Otoplastia','Correção do formato e do posicionamento das orelhas (orelha em abano), com cicatriz praticamente invisível, atrás da orelha. Pode ser realizada a partir dos 5 a 7 anos, quando a orelha já está formada.']
   ]},
-  consultorio:{title:'Procedimentos de Consultório',desc:'Procedimentos estéticos faciais realizados em consultório.',items:[
-    ['Toxina Botulínica','Suavização de linhas de expressão, com resultado natural.'],
-    ['Preenchimento com Ácido Hialurônico','Restauração de volume e contorno facial de forma gradual e natural.']
+  consultorio:{title:'Procedimentos de Consultório',desc:'Procedimentos estéticos faciais realizados em consultório, sem internação.',items:[
+    ['Toxina Botulínica','Relaxa os músculos responsáveis pelas rugas de expressão (testa, entre as sobrancelhas e ao redor dos olhos), suavizando as marcas de forma natural. Pode ser combinada com preenchimento para otimizar o resultado.'],
+    ['Preenchimento com Ácido Hialurônico','Reposição de volume e contorno com ácido hialurônico, substância semelhante à do próprio corpo. Indicado para lábios, rugas e sulcos faciais (como o bigode-chinês), com resultado natural e duração média de 12 meses.']
   ]}
 };
 const procModal=document.getElementById('procModal');
@@ -722,11 +732,20 @@ if(procModal){
   const mTitle=procModal.querySelector('.modal-title');
   const mDesc=procModal.querySelector('.modal-desc');
   const mList=procModal.querySelector('.modal-list');
+  // acordeão: expandir/recolher cada procedimento (abre um por vez)
+  mList.addEventListener('click',e=>{
+    const head=e.target.closest('.acc-head'); if(!head) return;
+    const item=head.parentElement;
+    const wasOpen=item.classList.contains('open');
+    mList.querySelectorAll('.acc-item.open').forEach(el=>{el.classList.remove('open');el.querySelector('.acc-head').setAttribute('aria-expanded','false');});
+    if(!wasOpen){item.classList.add('open');head.setAttribute('aria-expanded','true');}
+  });
+  const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
   const openCat=(key)=>{
     const c=CATS[key]; if(!c) return;
     mTitle.textContent=c.title;
     mDesc.textContent=c.desc;
-    mList.innerHTML=c.items.map(it=>'<li><h4>'+it[0]+'</h4><p>'+it[1]+'</p></li>').join('');
+    mList.innerHTML=c.items.map(it=>'<li class="acc-item"><button class="acc-head" aria-expanded="false"><span>'+esc(it[0])+'</span><span class="acc-ico">+</span></button><div class="acc-body"><p>'+esc(it[1])+'</p></div></li>').join('');
     procModal.classList.add('open');
     procModal.setAttribute('aria-hidden','false');
     procModal.querySelector('.proc-modal-panel').scrollTop=0;
