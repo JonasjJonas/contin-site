@@ -256,36 +256,24 @@ header.solid .cta-mini{border-color:var(--porcelain);color:var(--porcelain)}
 .clinica .eyebrow{color:var(--brass-soft)}
 .clinica h2{font-size:clamp(2rem,4vw,3.2rem);margin:1.1rem 0 .75rem}
 .clinica .sub{color:var(--greige);font-weight:300;max-width:36rem}
-.galeria{
-  margin-top:3.5rem;display:grid;gap:1rem;
-  grid-template-columns:repeat(3,1fr);
-}
-.galeria figure{height:clamp(300px,42vh,460px)}
-.galeria img{width:100%;height:100%;object-fit:cover}
-.clinica-video{
+.clinica-media{
   margin-top:clamp(2.5rem,5vw,3.5rem);
-  display:grid;grid-template-columns:1fr auto;gap:clamp(2rem,6vw,5rem);
-  align-items:center;
+  display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;
 }
-.cv-text{max-width:30rem}
-.cv-kicker{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--brass-soft);font-weight:600}
-.cv-line{
-  font-family:'Fraunces',serif;font-weight:300;line-height:1.25;letter-spacing:-.01em;
-  font-size:clamp(1.5rem,2.8vw,2.2rem);color:var(--porcelain);margin-top:1rem;
+.clinica-media figure{margin:0;overflow:hidden;border-radius:3px}
+.cm-side{height:clamp(360px,44vw,540px)}
+.cm-side img{width:100%;height:100%;object-fit:cover;display:block}
+.cm-video{
+  height:clamp(360px,44vw,540px);width:auto;aspect-ratio:9/16;justify-self:center;
+  border:1px solid color-mix(in srgb,var(--brass) 24%,transparent);
 }
-.cv-line em{font-style:italic;color:var(--brass-soft)}
-.cv-media{
-  width:min(340px,80vw);aspect-ratio:9/16;overflow:hidden;border-radius:4px;
-  border:1px solid color-mix(in srgb,var(--brass) 22%,transparent);justify-self:end;
-}
-.cv-media video{width:100%;height:100%;object-fit:cover;display:block}
+.cm-video video{width:100%;height:100%;object-fit:cover;display:block}
+.clinica-wide{margin-top:1rem;overflow:hidden;border-radius:3px;height:clamp(240px,36vh,420px)}
+.clinica-wide img{width:100%;height:100%;object-fit:cover;display:block}
 @media(max-width:900px){
-  .clinica-video{grid-template-columns:1fr;justify-items:center;text-align:center;gap:2rem}
-  .cv-media{justify-self:center}
-}
-@media(max-width:900px){
-  .galeria{grid-template-columns:1fr}
-  .galeria figure{height:clamp(240px,40vh,360px)}
+  .clinica-media{grid-template-columns:1fr;justify-items:center;gap:1rem}
+  .cm-side{width:100%;height:clamp(240px,55vw,360px)}
+  .cm-video{width:min(300px,75vw);height:auto}
 }
 .clinica .endereco{
   margin-top:3rem;font-size:.88rem;color:var(--greige);
@@ -332,6 +320,14 @@ header.solid .cta-mini{border-color:var(--porcelain);color:var(--porcelain)}
   color:var(--brass-soft);transition:letter-spacing .3s;
 }
 .cat-card:hover .cat-more{letter-spacing:.2em}
+.cat-illo{
+  position:absolute;top:1.5rem;right:1.3rem;
+  width:clamp(80px,42%,128px);height:auto;
+  color:var(--brass-soft);opacity:.4;pointer-events:none;
+  transition:opacity .35s;
+}
+.cat-card:hover .cat-illo{opacity:.62}
+.cat-illo *{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;filter:url(#pencil)}
 .procedimentos .note{
   font-size:.82rem;color:var(--greige);font-style:italic;position:relative;
   padding-left:1.4rem;margin-top:clamp(2.5rem,5vw,3.5rem);max-width:46rem;line-height:1.8;
@@ -390,7 +386,7 @@ body.modal-open{overflow:hidden}
 .modal-cta:hover{background:var(--brass-link);color:var(--stone)}
 
 /* ---------- livro ---------- */
-.livro .split img{height:min(68vh,600px);object-position:center 15%}
+.livro .split img{height:auto;object-position:center}
 .livro blockquote{
   font-family:'Fraunces',serif;font-style:italic;font-size:1.3rem;font-weight:300;
   color:var(--walnut);margin:1.4rem 0;max-width:28rem;line-height:1.5;
@@ -557,20 +553,16 @@ footer nav a:hover{color:var(--brass-soft)}
       <h2 class="display">The Art Clinic</h2>
       <p class="sub">Um espaço projetado para acolher: consultas, avaliações e acompanhamento pós-operatório em ambiente reservado, a minutos do Hospital Albert Einstein, Unidade Alphaville.</p>
     </div>
-    <div class="galeria reveal">
-      <figure class="zoomable"><img src="assets/clinica-orquideas.webp" alt="Vista da recepção por trás das orquídeas" loading="lazy"></figure>
-      <figure class="zoomable"><img src="assets/clinica-lounge.webp" alt="Sala de espera da clínica" loading="lazy"></figure>
-      <figure class="zoomable"><img src="assets/consultorio-dr.webp" alt="Dr. Luis Contin no consultório" loading="lazy"></figure>
-    </div>
-    <div class="clinica-video reveal">
-      <div class="cv-text">
-        <p class="cv-kicker">O ambiente</p>
-        <p class="cv-line">Um espaço pensado para o conforto e a discrição de <em>cada paciente</em>, do primeiro contato ao acompanhamento.</p>
-      </div>
-      <figure class="cv-media">
+    <div class="clinica-media reveal">
+      <figure class="cm-side zoomable"><img src="assets/clinica-orquideas.webp" alt="Vista da recepção por trás das orquídeas" loading="lazy"></figure>
+      <figure class="cm-video">
         <video src="assets/clinica-ambiente.mp4" autoplay muted loop playsinline preload="metadata" poster="assets/clinica-video-poster.jpg"></video>
       </figure>
+      <figure class="cm-side zoomable"><img src="assets/consultorio-dr.webp" alt="Dr. Luis Contin no consultório" loading="lazy"></figure>
     </div>
+    <figure class="clinica-wide reveal zoomable">
+      <img src="assets/clinica-lounge.webp" alt="Sala de espera da clínica" loading="lazy">
+    </figure>
     <div class="endereco reveal">
       <strong>Alphaville</strong>
       Alameda Grajaú, 98 · Cj. 1002 · Alphaville · São Paulo · CEP 06.454-050
@@ -587,26 +579,31 @@ footer nav a:hover{color:var(--brass-soft)}
       <h2 class="display">Cirurgia plástica <em>do corpo e da face</em>.</h2>
       <p class="proc-lead">Cada plano cirúrgico é construído a partir da anatomia, do histórico médico e das expectativas de cada paciente. A indicação começa sempre pela avaliação individual, com as cirurgias realizadas em ambiente hospitalar.</p>
     </div>
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute"><filter id="pencil" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.2"/></filter></svg>
     <div class="cat-grid reveal">
       <button class="cat-card" data-cat="corporais">
+        <svg class="cat-illo" viewBox="0 0 90 120" aria-hidden="true"><circle cx="45" cy="15" r="7"/><path d="M38 26 C33 34 34 44 37 52 C31 62 31 74 35 84 C33 96 34 106 36 116"/><path d="M52 26 C57 34 56 44 53 52 C59 62 59 74 55 84 C57 96 56 106 54 116"/></svg>
         <span class="cat-num">01</span>
         <h3>Cirurgias Corporais</h3>
         <p>Lipoaspiração em alta definição, contorno corporal e cirurgias pós-emagrecimento.</p>
         <span class="cat-more">Ver procedimentos →</span>
       </button>
       <button class="cat-card" data-cat="mamarias">
+        <svg class="cat-illo" viewBox="0 0 90 110" aria-hidden="true"><circle cx="45" cy="26" r="15"/><path d="M45 41 C43 47 43 50 45 54"/><path d="M20 96 C22 74 33 62 45 60 C57 62 68 74 70 96"/></svg>
         <span class="cat-num">02</span>
         <h3>Cirurgias Mamárias</h3>
         <p>Aumento, redução e reposicionamento mamário.</p>
         <span class="cat-more">Ver procedimentos →</span>
       </button>
       <button class="cat-card" data-cat="face">
+        <svg class="cat-illo" viewBox="0 0 90 110" aria-hidden="true"><path d="M58 12 C40 12 30 28 32 46 C33 54 27 56 26 62 C25 66 31 67 32 70 C33 78 27 80 32 86 C37 91 47 89 49 98"/><path d="M58 12 C70 16 74 30 72 46 C70 64 64 82 58 98"/></svg>
         <span class="cat-num">03</span>
         <h3>Face e Pescoço</h3>
         <p>Blefaroplastia e otoplastia.</p>
         <span class="cat-more">Ver procedimentos →</span>
       </button>
       <button class="cat-card" data-cat="consultorio">
+        <svg class="cat-illo" viewBox="0 0 90 110" aria-hidden="true"><ellipse cx="45" cy="48" rx="24" ry="31"/><path d="M30 42 C34 38 40 38 43 42"/><path d="M47 42 C50 38 56 38 60 42"/><path d="M32 50 C36 53 40 53 43 50"/><path d="M47 50 C50 53 54 53 58 50"/><path d="M45 50 L45 60 C42 63 40 62 38 61"/><path d="M37 70 C42 75 48 75 53 70"/></svg>
         <span class="cat-num">04</span>
         <h3>Procedimentos de Consultório</h3>
         <p>Toxina botulínica e preenchimento com ácido hialurônico.</p>
